@@ -1,6 +1,6 @@
 # TODO List
 
-A TODO List made with React.
+A TODO List made with React. There is no database connection so the changes won't be persisted.
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
