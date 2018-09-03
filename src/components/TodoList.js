@@ -42,7 +42,7 @@ class TodoList extends React.Component {
                         <button className="btn btn-success mr-1" 
                             onClick={() => filterList(true)}>Completed</button>
                         <button className="btn btn-danger" 
-                            onClick={() => filterList(false)}>Incompleted</button>
+                            onClick={() => filterList(false)}>Uncompleted</button>
                     </div>
                 </div>
             )
