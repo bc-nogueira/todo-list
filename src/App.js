@@ -6,6 +6,7 @@ class App extends Component {
   state = {
     todo: '',
     todoList: [],
+    filteringCompleted: null,
     showedTodoList: []
   }
 
@@ -16,26 +17,43 @@ class App extends Component {
   addTodo = (event) => {
     event.preventDefault();
     const todoItem = { name: this.state.todo, completed: false }
-    const newList = [...this.state.todoList, todoItem];
+    const todoList = [...this.state.todoList, todoItem];
+
+    const showedTodoList = this.state.filteringCompleted !== null 
+      ? todoList.filter(todo => todo.completed === this.state.filteringCompleted)
+      : todoList;
+
     this.setState({
       todo: '',
-      todoList: newList,
-      showedTodoList: newList
+      todoList,
+      showedTodoList
     });
   }
 
-  toggleCompleted = (index) => {
+  toggleCompleted = (index, teste) => {
     let todoList = this.state.todoList;
-    todoList[index].completed = !todoList[index].completed;
+    todoList[index].completed = teste;
     this.setState({ todoList });
   }
 
   filterList = (completed) => {
+    let showedTodoList;
+    let filteringCompleted;
+    if(completed !== null) {
+      showedTodoList = this.state.todoList.filter(todo => todo.completed === completed);
+      filteringCompleted = completed;
+    } else {
+      showedTodoList = this.state.todoList;
+      filteringCompleted = null;
+    }
 
-    const showedTodoList = completed !== null 
-      ? this.state.todoList.filter(todo => todo.completed === completed)
-      : this.state.todoList;
-    this.setState({ showedTodoList });
+    this.setState({ showedTodoList, filteringCompleted });
+  }
+
+  deleteTodo = (index) => {
+    let todoList = this.state.todoList;
+    todoList.splice(index, 1);
+    this.setState({ todoList });
   }
 
   render() {
@@ -48,6 +66,7 @@ class App extends Component {
           showedTodoList={this.state.showedTodoList} 
           toggleCompleted={this.toggleCompleted}
           filterList={this.filterList}
+          deleteTodo={this.deleteTodo}
         />
       </div>
     );

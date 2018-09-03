@@ -1,4 +1,6 @@
 import React from 'react';
+import '../App.css';
+import { FaCheck, FaUndo, FaTrashAlt} from 'react-icons/fa';
 
 class TodoList extends React.Component {
     render() {
@@ -8,16 +10,30 @@ class TodoList extends React.Component {
                 <div>
                     <ul className="list-group w-50 mt-4 mx-auto">
                         {showedTodoList.map((todo, index) => (
-                            <button 
-                                type="button" 
+                            <ul 
                                 key={index} 
-                                className="list-group-item list-group-item-action text-left"
-                                onClick={() => this.props.toggleCompleted(index)}
+                                className="list-group-item text-left d-flex justify-content-between"
                             >
-                                {todo.completed 
-                                    ? <s>{todo.name}</s>
-                                    : todo.name}
-                            </button>
+                                {todo.completed && (
+                                    <div>
+                                        <FaUndo 
+                                            onClick={() => this.props.toggleCompleted(index, false)} 
+                                            className="mr-3 text-danger pointer-cursor"/>
+                                        <s>{todo.name}</s>
+                                    </div>
+                                )}
+                                {!todo.completed && (
+                                    <div>
+                                        <FaCheck 
+                                            onClick={() => this.props.toggleCompleted(index, true)}
+                                            className="mr-3 text-success pointer-cursor"/>
+                                        {todo.name}
+                                    </div>
+                                )}
+                                <FaTrashAlt 
+                                    onClick={() => this.props.deleteTodo(index)}
+                                    className="pointer-cursor" />
+                            </ul>
                         ))}
                     </ul>
                     <div className="mt-3 text-center">
