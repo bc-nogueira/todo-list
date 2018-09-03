@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
+import TodoForm from './components/TodoForm';
+import TodoList from './components/TodoList';
 
 class App extends Component {
   state = {
@@ -22,19 +23,9 @@ class App extends Component {
   render() {
     return (
       <div className="App container">
-        <form className="form-inline mt-4 justify-content-center" onSubmit={this.addTodo}>
-          <label htmlFor="" className="sr-only">Todo</label>
-          <input type="text" className="form-control mb-2 mr-sm-3 w-75" 
-            placeholder="Insira sua nova atividade"
-            value={this.state.todo} onChange={this.onChange} />
-          <button className="btn btn-outline-primary mb-2">Submit</button>
-        </form>
+        <TodoForm todo={this.state.todo} onChange={this.onChange} addTodo={this.addTodo} />
 
-        <ul className="list-group w-50 mt-4 mx-auto">
-          {this.state.todoList.map((todo, index) => (
-            <li key={index} className="list-group-item text-left">{todo}</li>
-          ))}
-        </ul>
+        <TodoList todoList={this.state.todoList} />
       </div>
     );
   }
