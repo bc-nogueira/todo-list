@@ -29,6 +29,12 @@ class App extends Component {
             value={this.state.todo} onChange={this.onChange} />
           <button className="btn btn-outline-primary mb-2">Submit</button>
         </form>
+
+        <ul className="list-group w-50 mt-4 mx-auto">
+          {this.state.todoList.map((todo, index) => (
+            <li key={index} className="list-group-item text-left">{todo}</li>
+          ))}
+        </ul>
       </div>
     );
   }
