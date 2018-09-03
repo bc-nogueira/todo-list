@@ -14,10 +14,17 @@ class App extends Component {
   
   addTodo = (event) => {
     event.preventDefault();
+    const todoItem = { name: this.state.todo, completed: false }
     this.setState({
       todo: '',
-      todoList: [...this.state.todoList, this.state.todo]
+      todoList: [...this.state.todoList, todoItem]
     });
+  }
+
+  toggleCompleted = (index) => {
+    let todoList = this.state.todoList;
+    todoList[index].completed = !todoList[index].completed;
+    this.setState({ todoList });
   }
 
   render() {
@@ -25,7 +32,7 @@ class App extends Component {
       <div className="App container">
         <TodoForm todo={this.state.todo} onChange={this.onChange} addTodo={this.addTodo} />
 
-        <TodoList todoList={this.state.todoList} />
+        <TodoList todoList={this.state.todoList} toggleCompleted={this.toggleCompleted} />
       </div>
     );
   }

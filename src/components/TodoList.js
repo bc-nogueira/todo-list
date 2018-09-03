@@ -5,7 +5,16 @@ class TodoList extends React.Component {
         return (
             <ul className="list-group w-50 mt-4 mx-auto">
                 {this.props.todoList.map((todo, index) => (
-                    <li key={index} className="list-group-item text-left">{todo}</li>
+                    <button 
+                        type="button" 
+                        key={index} 
+                        className="list-group-item list-group-item-action text-left"
+                        onClick={() => this.props.toggleCompleted(index)}
+                    >
+                        {todo.completed 
+                            ? <s>{todo.name}</s>
+                            : todo.name}
+                    </button>
                 ))}
             </ul>
         );
