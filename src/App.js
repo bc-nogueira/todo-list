@@ -5,7 +5,8 @@ import TodoList from './components/TodoList';
 class App extends Component {
   state = {
     todo: '',
-    todoList: []
+    todoList: [],
+    showedTodoList: []
   }
 
   onChange = (event) => {
@@ -15,9 +16,11 @@ class App extends Component {
   addTodo = (event) => {
     event.preventDefault();
     const todoItem = { name: this.state.todo, completed: false }
+    const newList = [...this.state.todoList, todoItem];
     this.setState({
       todo: '',
-      todoList: [...this.state.todoList, todoItem]
+      todoList: newList,
+      showedTodoList: newList
     });
   }
 
@@ -27,12 +30,25 @@ class App extends Component {
     this.setState({ todoList });
   }
 
+  filterList = (completed) => {
+
+    const showedTodoList = completed !== null 
+      ? this.state.todoList.filter(todo => todo.completed === completed)
+      : this.state.todoList;
+    this.setState({ showedTodoList });
+  }
+
   render() {
     return (
       <div className="App container">
         <TodoForm todo={this.state.todo} onChange={this.onChange} addTodo={this.addTodo} />
 
-        <TodoList todoList={this.state.todoList} toggleCompleted={this.toggleCompleted} />
+        <TodoList
+          todoList = {this.state.todoList}
+          showedTodoList={this.state.showedTodoList} 
+          toggleCompleted={this.toggleCompleted}
+          filterList={this.filterList}
+        />
       </div>
     );
   }
